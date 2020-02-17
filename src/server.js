@@ -14,9 +14,9 @@ const bodyParserMiddleWare = bodyParser.json();
 app.use(bodyParserMiddleWare);
 
 const userRoutes = require("./User/router");
-// const gameRoomRoutes = require("./GameRoom/router");
-// app.use(gameRoomRoutes);
+const gameRoomRoutes = require("./GameRoom/router");
 app.use(userRoutes);
+app.use(gameRoomRoutes);
 
 app.get("/ping", (request, response) => {
   response.send("You rang?");

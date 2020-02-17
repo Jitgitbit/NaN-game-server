@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const db = require(`../db`);
-const {User} = require(`../User/model`);
 
 const GameRoom = db.define(
   'gameroom',
@@ -13,6 +12,5 @@ const GameRoom = db.define(
   },
 )
 
-GameRoom.belongsTo(User);
 
 module.exports = GameRoom 
