@@ -1,6 +1,5 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../db");
-const {GameRoom} = require(`../GameRoom/model`);
 
 const User = sequelize.define("user", {
   email: {
@@ -13,8 +12,5 @@ const User = sequelize.define("user", {
     allowNull: false
   }
 });
-
-User.belongsTo(GameRoom);
-
 
 module.exports = User;
