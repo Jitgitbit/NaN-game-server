@@ -14,8 +14,8 @@ const bodyParserMiddleWare = bodyParser.json();
 app.use(bodyParserMiddleWare);
 
 const userRoutes = require("./User/router");
-const gameRoomRoutes = require("./GameRoom/router");
-app.use(gameRoomRoutes);
+// const gameRoomRoutes = require("./GameRoom/router");
+// app.use(gameRoomRoutes);
 app.use(userRoutes);
 
 app.get("/ping", (request, response) => {
