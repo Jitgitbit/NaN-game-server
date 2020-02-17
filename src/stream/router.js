@@ -17,6 +17,25 @@ function factory(stream) {
       next(error);
     }
   });
+  router.post("/stream", async (req, res, next) => {
+    try {
+      const { name } = req.body;
+      const newRoom = await GameRoom.create({ name });
+
+      const action = {
+        type: "ONE_GAMEROOM",
+        payload: newRoom
+      };
+      const stringAction = JSON.stringify(action);
+      stream.send(stringAction);
+      res.json(newRoom);
+    } catch (e) {
+      if (e.name === "SequelizeUniqueConstraintError") {
+        return res.status(409).send("Game room already exist");
+      }
+      next(e);
+    }
+  });
   return router;
 }
 module.exports = factory;
