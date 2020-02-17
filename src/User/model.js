@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../db");
-const {GameRoom} = require(`../GameRoom/model`);
+const GameRoom = require(`../GameRoom/model`);
 
 
 const User = sequelize.define("user", {
