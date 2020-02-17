@@ -46,7 +46,7 @@ router.post("/login", async (request, response) => {
   if (passwordValid) {
     const token = toJWT({ id: user.id });
 
-    return response.status(200).send({ token: token });
+    return response.status(200).send({ email: user.email, token: token });
   }
 });
 
