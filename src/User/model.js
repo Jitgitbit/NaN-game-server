@@ -1,7 +1,10 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../db");
 const GameRoom = require(`../GameRoom/model`);
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
 
 const User = sequelize.define("user", {
   email: {
