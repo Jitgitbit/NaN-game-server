@@ -13,7 +13,8 @@ const bodyParserMiddleWare = bodyParser.json();
 
 app.use(bodyParserMiddleWare);
 
-
+const userRoutes = require("./User/router");
+app.use(userRoutes);
 
 app.get("/ping", (request, response) => {
   response.send("You rang?");
