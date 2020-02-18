@@ -55,7 +55,7 @@ router.post("/login", async (request, response) => {
 //   '/user',
 //   (request, response, next) => User
 //     .find(request.params.email)
-//     .then(user => user.update({ gameroomId: request.body.gameroomId}))
+//     .then(user => user.update({ gameRoomId: request.body.gameRoomId}))
 //     .then(user => response.send(user))
 //     .catch(next)
 // )
