@@ -51,30 +51,40 @@ router.post("/login", async (request, response) => {
   }
 });
 
-// router.put(
-//   '/user',
-//   (request, response, next) => User
-//     .find(request.params.email)
-//     .then(user => user.update({ gameRoomId: request.body.gameRoomId}))
+// router.post(
+//   '/join', auth,
+//   (request, response, next) => {
+//     request.user.update({ gameRoomId: request.body.gameRoomId})
 //     .then(user => response.send(user))
 //     .catch(next)
+//   }
 // )
 
-router.post("/join", auth, async (request, response, next) => {
-  //console.log("checking the request", request.user.dataValues.id);
+router.post('/join', auth, async(request, response, next) => {
+  console.log(request.user.dataValues.id)
   try {
-    const user = await User.findByPk(request.user.dataValues.id);
-    // console.log("check user value", user);
-    if (user) {
-      const updateGameRoom = await User.update(
-        { gameroomId: request.body.gameRoomId },
-        { where: { id: user.id } }
-      );
-      //console.log("This is test", updateGameRoom);
-    }
+    const upUser = await request.user.update({ gameRoomId: request.body.gameRoomId })
+    response.send(upUser)
   } catch (error) {
-    response.status(400).send("Bad Request");
+    next(error)
   }
-});
+})
+
+// router.post("/join", auth, async (request, response, next) => {
+//   //console.log("checking the request", request.user.dataValues.id);
+//   try {
+//     const user = await User.findByPk(request.user.dataValues.id);
+//     // console.log("check user value", user);
+//     if (user) {
+//       const updateGameRoom = await User.update(
+//         { gameroomId: request.body.gameRoomId },
+//         { where: { id: user.id } }
+//       );
+//       //console.log("This is test", updateGameRoom);
+//     }
+//   } catch (error) {
+//     response.status(400).send("Bad Request");
+//   }
+// });
 
 module.exports = router;
