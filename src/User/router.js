@@ -55,14 +55,14 @@ router.post("/login", async (request, response) => {
 //   '/user',
 //   (request, response, next) => User
 //     .find(request.params.email)
-//     .then(user => user.update({ gameroomId: request.body.gameroomId}))
+//     .then(user => user.update({ gameRoomId: request.body.gameRoomId}))
 //     .then(user => response.send(user))
 //     .catch(next)
 // )
 
 router.post('/join', auth, async(request, response, next) => {
   console.log(request.user.dataValues.id);
-  const updatedUser = { ...request.body, gameroomId: request.user.dataValues.gameroomId};
+  const updatedUser = { ...request.body, gameRoomId: request.user.dataValues.gameRoomId};
   const user = await User.update(updatedUser);
   return response.send(user)
 })
