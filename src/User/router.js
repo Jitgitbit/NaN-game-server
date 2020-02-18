@@ -50,4 +50,28 @@ router.post("/login", async (request, response) => {
   }
 });
 
+// router.put('/user/:id', async (request,response,next) => {
+//   console.log(request.body.email);
+
+//   const user = await User.find({where: {email: request.body.email}})
+//     .on(`success`, function(user){
+//       if (user) {
+//         user.update({
+//           gameroomId: request.body.gameroomId
+//         })
+//         .success(function() {})
+//       }
+//     })
+// });
+
+router.put(
+  '/user',
+  (request, response, next) => User
+    .find(request.params.email)
+    .then(user => user.update({ gameroomId: request.body.gameroomId}))
+    .then(user => response.send(user))
+    .catch(next)
+)
+
+
 module.exports = router;
