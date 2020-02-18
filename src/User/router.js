@@ -38,7 +38,7 @@ router.post("/login", async (request, response) => {
   console.log(request.body);
 
   const user = await User.findOne({ where: { email: request.body.email } });
-
+  console.log("whats wrong", user)
   const passwordValid = bcrypt.compareSync(
     request.body.password,
     user.password
@@ -60,22 +60,7 @@ router.post("/login", async (request, response) => {
 //     .catch(next)
 // )
 
-// router.put(
-//   '/join', 
-//   (request, response, next) => User.token
-//     .then(user => user.update({ gameroomId: request.body.gameroomId}))
-//     .then(user => response.send(user))
-//     .catch(next)
-// )
-
-// router.post("/events", auth, async (request, response) => {
-//   console.log(request.user.dataValues.id);
-//   const newEvent = { ...request.body, userId: request.user.dataValues.id };
-//   const event = await Event.create(newEvent);
-//   return response.status(201).send(event);
-// });
-
-router.put('/join', auth, async(request, response, next) => {
+router.post('/join', auth, async(request, response, next) => {
   console.log(request.user.dataValues.id);
   const updatedUser = { ...request.body, gameroomId: request.user.dataValues.gameroomId};
   const user = await User.update(updatedUser);
