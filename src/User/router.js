@@ -38,7 +38,7 @@ router.post("/login", async (request, response) => {
   console.log(request.body);
 
   const user = await User.findOne({ where: { email: request.body.email } });
-  console.log("whats wrong", user)
+  console.log("whats wrong", user);
   const passwordValid = bcrypt.compareSync(
     request.body.password,
     user.password
@@ -60,11 +60,21 @@ router.post("/login", async (request, response) => {
 //     .catch(next)
 // )
 
-router.post('/join', auth, async(request, response, next) => {
-  console.log(request.user.dataValues.id);
-  const updatedUser = { ...request.body, gameroomId: request.user.dataValues.gameroomId};
-  const user = await User.update(updatedUser);
-  return response.send(user)
-})
+router.post("/join", auth, async (request, response, next) => {
+  //console.log("checking the request", request.user.dataValues.id);
+  try {
+    const user = await User.findByPk(request.user.dataValues.id);
+    // console.log("check user value", user);
+    if (user) {
+      const updateGameRoom = await User.update(
+        { gameroomId: request.body.gameRoomId },
+        { where: { id: user.id } }
+      );
+      //console.log("This is test", updateGameRoom);
+    }
+  } catch (error) {
+    response.status(400).send("Bad Request");
+  }
+});
 
 module.exports = router;
