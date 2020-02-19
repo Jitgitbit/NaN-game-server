@@ -8,7 +8,7 @@ const db = new Sequelize(databaseUrl);
 
 db
   // .sync({ force: true })// forces by overwriting,  the latest change counts!!
-  .sync()
+  .sync({ force: false })
   .then(() => console.log("DB connected"))
   .catch(console.error);
 
