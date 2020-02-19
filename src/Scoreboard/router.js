@@ -36,15 +36,14 @@ function factory(stream) {
       const { score, userId, gameroomId } = req.body;
       console.log("req body", req.body);
       const newScore = await Scoreboard.create({ score, userId, gameroomId });
-      const oneScoreInfo = await Scoreboard.findAll({
+      const oneScoreInfo = await Scoreboard.findByPk(newScore.id, {
         attributes: ["score", "gameroomId"],
         include: [
           {
             model: User,
             attributes: ["email"]
           }
-        ],
-        where: { id: newScore.id }
+        ]
       });
 
       const action = {
@@ -53,7 +52,7 @@ function factory(stream) {
       };
       const stringAction = JSON.stringify(action);
       stream.send(stringAction);
-      res.json(newScore);
+      res.json(oneScoreInfo);
     } catch (e) {
       next(e);
     }
