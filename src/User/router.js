@@ -49,7 +49,7 @@ router.post("/login", async (request, response) => {
 
     return response
       .status(200)
-      .send({ email: user.email, token: token, id: user.id });
+      .send({ id: user.id, email: user.email, token: token });
   }
 });
 
