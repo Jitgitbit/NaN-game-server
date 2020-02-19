@@ -17,6 +17,8 @@ function factory(stream) {
       next(error);
     }
   });
+
+  
   router.post("/stream", async (req, res, next) => {
     try {
       const { name } = req.body;
