@@ -1,11 +1,21 @@
 const { Router } = require("express");
 const Scoreboard = require("./model");
+const User = require("../User/model");
 const router = new Router();
 
 function factory(stream) {
   router.get("/scoreboard", async (req, res, next) => {
     try {
-      const allScoreInfo = await Scoreboard.findAll();
+      const allScoreInfo = await Scoreboard.findAll({
+        attributes: ["score", "gameroomId"],
+        include: [
+          {
+            model: User,
+            attributes: ["email"]
+          }
+        ]
+      });
+
       // console.log("allRooms", allRooms)
       const action = {
         type: "ALL_SCOREINFO",
@@ -26,9 +36,20 @@ function factory(stream) {
       const { score, userId, gameroomId } = req.body;
       console.log("req body", req.body);
       const newScore = await Scoreboard.create({ score, userId, gameroomId });
+      const oneScoreInfo = await Scoreboard.findAll({
+        attributes: ["score", "gameroomId"],
+        include: [
+          {
+            model: User,
+            attributes: ["email"]
+          }
+        ],
+        where: { id: newScore.id }
+      });
+
       const action = {
         type: "ONE_SCORE",
-        payload: newScore
+        payload: oneScoreInfo
       };
       const stringAction = JSON.stringify(action);
       stream.send(stringAction);
