@@ -47,7 +47,9 @@ router.post("/login", async (request, response) => {
   if (passwordValid) {
     const token = toJWT({ id: user.id });
 
-    return response.status(200).send({ email: user.email, token: token });
+    return response
+      .status(200)
+      .send({ email: user.email, token: token, id: user.id });
   }
 });
 
@@ -81,7 +83,7 @@ router.post("/join", auth, async (request, response, next) => {
         { where: { id: user.id } }
       );
       console.log("Game Room updated", updateGameRoom);
-      response.status(201).send(updateGameRoom)
+      response.status(201).send(updateGameRoom);
     }
   } catch (error) {
     response.status(400).send("Bad Request");
