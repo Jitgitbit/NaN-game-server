@@ -8,4 +8,5 @@ const GameRoom = db.define("gameroom", {
     allowNull: false
   }
 });
+
 module.exports = GameRoom;
